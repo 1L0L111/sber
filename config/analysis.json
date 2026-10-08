@@ -1,0 +1,36 @@
+{
+  "clustering": {
+    "k": 7,
+    "source": "original atlas",
+    "retrain_requires": "municipality dictionary and prepared geographic inputs"
+  },
+  "shift": {
+    "trailing_months": 3,
+    "monthly_top_quantile": 0.9,
+    "persistence_next_month_quantile": 0.6
+  },
+  "network": {
+    "transport": "highway",
+    "neighbors_k": [
+      1,
+      3,
+      5,
+      10,
+      20
+    ],
+    "primary_k": 5
+  },
+  "forecast": {
+    "target_horizon_months": 1,
+    "validation": "expanding_window",
+    "first_train_months": 8,
+    "model": "logistic_regression",
+    "C": 0.5,
+    "class_weight": "balanced"
+  },
+  "population": {
+    "weighting": "equal_municipality",
+    "regional_population_only": true,
+    "municipal_population_weighting_enabled": false
+  }
+}

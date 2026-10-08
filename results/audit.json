@@ -1,0 +1,12 @@
+{
+  "consumption_rows": 303126,
+  "period_start": "2023-01-01",
+  "period_end": "2024-12-01",
+  "territories_total": 2190,
+  "complete_territories": 2016,
+  "complete_panel_rows": 48384,
+  "connection_rows": 5942364,
+  "market_access_territories": 2571,
+  "persistent_events": 3170,
+  "territories_with_persistent_event": 847
+}

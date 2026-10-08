@@ -1,0 +1,69 @@
+<header class="bar"><b>Атлас трат</b>
+<a href="#map-sec">Карта</a><a href="#types">Семь типов</a><a href="#dyn">Динамика</a><a href="#passport">Паспорт территории</a><a href="#method">Метод</a><a href="#limits">Ограничения</a>
+<button id="theme" aria-label="Сменить тему">Тема</button></header>
+
+<section class="hero" id="map-sec"><div class="wrap">
+ <div class="hero-top">
+  <div><h1>Как тратит Россия: семь типов территорий</h1>
+  <p class="lede">Мы объединили 2 190 муниципалитетов в семь групп по структуре безналичных трат жителей за 24 месяца и проследили, как они переходят из группы в группу. Карту можно приближать, фильтровать и листать по месяцам.</p></div>
+  <div class="kpis"><div><b class="num" id="k1">2 190</b><span>муниципальных образований</span></div><div><b>24</b><span>месяца, 2023–2024</span></div><div><b id="k3">81%</b><span>сохранили тип за год</span></div><div><b id="k4">7</b><span>типов, выбранных по 9 индексам</span></div></div>
+ </div>
+ <div class="layers" role="group" aria-label="Слой карты">
+  <span class="sub">Раскрасить по:</span>
+  <button data-layer="type" aria-pressed="true">Типу</button><button data-layer="level" aria-pressed="false">Уровню трат</button>
+  <button data-layer="traj" aria-pressed="false">Устойчивости типа</button><button data-layer="conf" aria-pressed="false">Уверенности</button><button data-layer="ma" aria-pressed="false">Доступности рынков</button>
+ </div>
+ <div class="mapbox" id="mapbox"><svg id="map" role="img" aria-label="Карта типов муниципальных образований России"></svg>
+  <div class="regsel"><select id="regsel" aria-label="Приблизить к региону"><option value="">Вся Россия</option></select></div>
+  <div class="zoom"><button id="zin" aria-label="Приблизить">+</button><button id="zout" aria-label="Отдалить">−</button><button id="zres" aria-label="Сбросить масштаб">⌂</button></div>
+  <div class="tip" id="tip"></div>
+  <div class="monthbar" id="monthbar"><button id="play" aria-label="Запустить анимацию">▶</button><span class="m num" id="mlabel"></span><input type="range" id="mslider" min="0" max="23" value="23" aria-label="Месяц"></div>
+ </div>
+ <div class="legend" id="legend"></div><div id="scale"></div>
+</div></section>
+
+<section id="types"><div class="wrap">
+ <h2>Семь типов потребительского поведения</h2>
+ <p>Тип определяется не размером города, а структурой трат: сколько уходит на еду, кафе, транспорт и маркетплейсы, насколько расходы колеблются по сезонам и как быстро растут. География в кластеризации не участвовала, но типы оказались географически осмысленными. Это одна из проверок, что выделенные группы не случайны.</p>
+ <div id="tlist"></div>
+</div></section>
+
+<section id="dyn"><div class="wrap">
+ <h2>Динамика: территории перетекают вдоль одного континуума</h2>
+ <p id="dynlede"></p>
+ <div class="two">
+  <div><h3>Куда перешли территории за год</h3><p class="sub">Тип МО в июле–декабре 2023 (строки) и в июле–декабре 2024 (столбцы): сравниваем одни и те же сезоны. Цифры — число МО, цвет — доля строки.</p><div id="tmat"></div></div>
+  <div><h3>Профили типов по месяцам</h3><div class="tabs" id="stabs"></div><div id="schart"></div><p class="sub" id="snote"></p></div>
+ </div>
+ <h3 style="margin-top:44px">Насколько устойчив тип каждой территории</h3>
+ <div id="trajbar"></div><p class="sub" id="trajnote"></p>
+</div></section>
+
+<section id="passport"><div class="wrap">
+ <h2>Паспорт территории</h2>
+ <div class="pass">
+  <div><div class="search"><input id="q" type="search" placeholder="Название района или города" autocomplete="off" aria-label="Поиск территории"><div class="sres" id="sres"></div></div>
+   <p class="sub" style="margin-top:10px">Можно выбрать территорию и на карте: клик по любому району открывает его паспорт.</p><div id="pcards"></div></div>
+  <div id="pbody"></div>
+ </div>
+</div></section>
+
+<section id="method"><div class="wrap">
+ <h2>Как мы строили типы</h2>
+ <div class="steps"><div><b>Профиль</b><span>Структура трат по пяти категориям и «прочему» в логарифмическом соотношении долей, центрированная по месяцу, плюс уровень трат.</span></div>
+ <div><b>Сеть</b><span>Ребро между МО, если у них похожи профиль, траектория за 12 месяцев и форма ряда во времени (DTW). Каждая МО связана со своими 15 ближайшими.</span></div>
+ <div><b>Кластеры</b><span>Признаки сглаживаются по соседям в сети, затем k-means. Сглаживание во времени подбирается автоматически.</span></div>
+ <div><b>Типы во времени</b><span>Каждый месяц кластеризуется заново, затем каждый кластер сопоставляется с типом декабря 2024 по расстоянию между центрами.</span></div></div>
+ <h3 style="margin-top:44px">Ловушка внутренних индексов</h3>
+ <p id="trapnote"></p>
+ <div class="two"><div id="scatter"></div><div><div id="gridnote" class="sub"></div><div id="gtable"></div></div></div>
+ <h3 style="margin-top:44px">Почему именно 7 типов</h3>
+ <div class="two"><div id="kchart"></div><div id="knote"></div></div>
+ <h3 style="margin-top:44px">Качество итогового разбиения</h3><div id="icvitable"></div>
+</div></section>
+
+<section id="limits"><div class="wrap">
+ <h2>Что здесь нельзя утверждать</h2>
+ <ul class="lim" id="limlist"></ul>
+</div></section>
+<footer><div class="wrap"><p id="foot"></p></div></footer>
